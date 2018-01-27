@@ -18,8 +18,9 @@ function timer(k){
 	c.beginPath();
 	c.fillStyle = "white";
 	c.fillRect(300,0,200,500);
-	c.fillStyle = "red";
-	c.fillText(k, 400, 200);
+	c.fillStyle = "black";
+	c.font = "italic 30pt Arial";
+	c.fillText(k, 350, 50);
 	c.closePath();
 	
 }
@@ -65,7 +66,7 @@ clear();
 		}
 		else {
         drawline(150,150,150,0, '#000');
-		draw(150,150,150, 6*Math.PI/4, 6*Math.PI/4 + k, '#ff0000');
+		draw(150,150,150, 6*Math.PI/4, 6*Math.PI/4 + k, 'blue');
 		switch(k){
 			case(Math.PI/2):{
 			drawline(150,150,300,150, '#000');
@@ -83,6 +84,9 @@ clear();
 	}
 },15000);
 	setInterval(function () {
+		if((time/1000)==60){
+			time = 0;	 
+		}
         time = time + 1000;
 		 timer(time/1000);
 	},1000);
