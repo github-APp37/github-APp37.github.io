@@ -54,6 +54,7 @@ function drawline(x,y,toX,toY,color)
 var k = 0;
 time = 0;
 clear();
+drawline(150,150,150,0, '#000');
  setInterval(function () {
 		clear();
 		k = k + Math.PI/2;
@@ -66,7 +67,7 @@ clear();
 		}
 		else {
         drawline(150,150,150,0, '#000');
-		draw(150,150,150, 6*Math.PI/4, 6*Math.PI/4 + k, 'green');
+		draw(150,150,150, 6*Math.PI/4, 6*Math.PI/4 + k, 'blue');
 		switch(k){
 			case(Math.PI/2):{
 			drawline(150,150,300,150, '#000');
