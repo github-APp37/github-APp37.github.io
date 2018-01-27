@@ -14,13 +14,13 @@ var canvas = document.getElementById('canvas'),
 canvas.width = 500;
 canvas.height = 500;
 
-function timer(k){
+function timer(m,s){
 	c.beginPath();
 	c.fillStyle = "white";
 	c.fillRect(300,0,200,500);
 	c.fillStyle = "black";
 	c.font = "italic 30pt Arial";
-	c.fillText(k, 350, 50);
+	c.fillText(m + ":" + s , 350, 50);
 	c.closePath();
 	
 }
@@ -52,7 +52,8 @@ function drawline(x,y,toX,toY,color)
 			c.stroke();
 		}
 var k = 0;
-time = 0;
+m = 00;
+s = 0;
 clear();
 drawline(150,150,150,0, '#000');
  setInterval(function () {
@@ -85,11 +86,12 @@ drawline(150,150,150,0, '#000');
 	}
 },15000);
 	setInterval(function () {
-		if((time/1000)==60){
-			time = 0;	 
+		if((s/1000)==60){
+			m = m+1;
+			s = 0;
 		}
-        time = time + 1000;
-		 timer(time/1000);
+        s = s + 1000;
+		 timer(m,s/1000);
 	},1000);
     </script>
 </body>
