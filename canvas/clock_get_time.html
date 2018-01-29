@@ -10,18 +10,26 @@
 var canvas = document.getElementById('canvas'),
     c = canvas.getContext('2d');
 
-canvas.width = 500;
-canvas.height = 500;
+canvas.width = 800;
+canvas.height = 300;
 var img = new Image();
 img.src = 'cyferblat.jpg';
+    var opt = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    };
+var data = new Date();
+
 
 function timer(o,m,s){
 	c.beginPath();
 	c.fillStyle = "white";
-	c.fillRect(300,0,200,500);
+	c.fillRect(300,0,500,500);
 	c.fillStyle = "black";
 	c.font = "italic 30pt Arial";
-	c.fillText(o + ":" + m + ":" + s , 300, 50);
+	c.fillText(o + ":" + m + ":" + s , 350, 50);
+	c.fillText(data.toLocaleString('ru', opt) , 300, 100);
 	c.closePath();
 	
 }
@@ -68,54 +76,37 @@ function clear() {
     c.drawImage(img, -10, -10, 320,320)
 
 }
-var sk = 0;
-mk=0;
-m = 0;
-o = 0;
-ok = 0;
-s = 0;
-q=0;
+var s = data.getSeconds();
+var m = data.getMinutes();
+var o = data.getHours();
+var sk = 6*Math.PI/4 + s*Math.PI/30;
+var mk = 6*Math.PI/4 + m*Math.PI/30 ;
+var ok = 6*Math.PI/4 + o*Math.PI/30;
+var q=0;
 img.onload  = function () {
 clear();
-drawline(150,150,150,0,'#000');
-timer(o,m,s);
+
+timer(o,m,s);      	
+rotate(sk,150,'red');
+rotate(mk,130,'green');
+rotate(ok,100,'blue');
 }
- setInterval(function () {
+
+setInterval(function () {
 		clear();
-		s = s + 1;
-		if((s)==60){
-			m = m+1;
-			s = 0;
-		}
-		if (m==60)
-		{
-			m = 0;
-			o = o + 1;
-		}
-		if (o==24){
-			o = 0 ;
-		}
-        timer(o,m,s);
+var dat = new Date();
+s = dat.getSeconds();
+m = dat.getMinutes();
+o = dat.getHours();
 
-		sk = sk + Math.PI/30;
+timer(o,m,s);
+sk = 6*Math.PI/4 + s*Math.PI/30;
+mk = 6*Math.PI/4 + m*Math.PI/30 ;
+ok = 6*Math.PI/4 + o*Math.PI/30;
 
-        	if (sk>59*Math.PI/30) {
-        	mk= mk + Math.PI/30;
-			sk=0;
-			q=q+1;
-        }
-        if (q==12){
-        	ok = ok + Math.PI/30;     	
-        	q= 0;
-             }
-        if (mk>59*Math.PI/30){
-       		mk=0;
-        }
-		else {
-        	rotate(6*Math.PI/4 + sk,150,'red');
-        	rotate(6*Math.PI/4 + mk,150,'green');
-        	rotate(6*Math.PI/4 + ok, 115, 'blue');
-    }
+rotate(sk,150,'red');
+rotate(mk,130,'green');
+rotate(ok,100,'blue');
 
 },1000);
 	 </script>
