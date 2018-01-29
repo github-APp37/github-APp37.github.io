@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Часы</title>
 </head>
 <body>
     <canvas id="canvas"></canvas>
@@ -13,24 +12,20 @@ var canvas = document.getElementById('canvas'),
 
 canvas.width = 500;
 canvas.height = 500;
+var img = new Image();
+img.src = 'cyferblat.jpg';
 
-function timer(m,s){
+function timer(o,m,s){
 	c.beginPath();
 	c.fillStyle = "white";
 	c.fillRect(300,0,200,500);
 	c.fillStyle = "black";
 	c.font = "italic 30pt Arial";
-	c.fillText(m + ":" + s , 350, 50);
+	c.fillText(o + ":" + m + ":" + s , 300, 50);
 	c.closePath();
 	
 }
 
-function clear() {
-    c.fillStyle = '#fff';
-    c.clearRect(0, 0, 300, 300);
-    c.fillRect(0, 0, 300, 300);
-    drawArc(150,150,150, 6*Math.PI/4, 6*Math.PI/4 + 4*Math.PI/2 );
-}
 function draw(centerX, centerY, radius, startAngle, endAngle, color ){
     c.fillStyle = color;
     c.beginPath();
@@ -38,61 +33,91 @@ function draw(centerX, centerY, radius, startAngle, endAngle, color ){
     c.arc(centerX, centerY, radius, startAngle, endAngle);
     c.closePath();
     c.fill();
+    c.closePath();
 }
+
 function drawArc(centerX, centerY, radius, startAngle, endAngle){
     c.beginPath();
     c.arc(centerX, centerY, radius, startAngle, endAngle);
     c.stroke();
+    c.closePath();
+
 }
+
+
 function drawline(x,y,toX,toY,color)
 		{
 			c.beginPath();
+			c.strokeStyle = color;
 			c.moveTo(x,y);
 			c.lineTo(toX,toY);
 			c.stroke();
+			c.closePath();
 		}
-var k = 0;
-m = 00;
+
+function rotate(ang,r,color){
+x1 = Math.cos(ang) * r + 150;
+y1 = Math.sin(ang) * r + 150;
+drawline(150,150,x1,y1,color);	
+}
+
+function clear() {
+    c.fillStyle = '#fff';
+    c.clearRect(0, 0, 300, 300);
+    c.fillRect(0, 0, 300, 300);
+    c.drawImage(img, -10, -10, 320,320)
+
+}
+var sk = 0;
+mk=0;
+m = 0;
+o = 0;
+ok = 0;
 s = 0;
+q=0;
+img.onload  = function () {
 clear();
-drawline(150,150,150,0, '#000');
+drawline(150,150,150,0,'#000');
+timer(o,m,s);
+}
  setInterval(function () {
 		clear();
-		k = k + Math.PI/2;
-        	if (k>4*Math.PI/2) {
-			k=Math.PI/2;
-        } 
-		if (k>3*Math.PI/2)
-		{
-		drawline(150,150,150,0, '#000');
-		}
-		else {
-        drawline(150,150,150,0, '#000');
-		draw(150,150,150, 6*Math.PI/4, 6*Math.PI/4 + k, 'blue');
-		switch(k){
-			case(Math.PI/2):{
-			drawline(150,150,300,150, '#000');
-			break;
-			}
-			case(2*Math.PI/2):{
-			drawline(150,150,150,300, '#000');
-			break;
-			}
-			case(3*Math.PI/2):{
-			drawline(150,150,0,150, '#000');
-			break;
-			}
-		}
-	}
-},15000);
-	setInterval(function () {
-		s = s + 1000;
-		if((s/1000)==60){
+		s = s + 1;
+		if((s)==60){
 			m = m+1;
 			s = 0;
 		}
-        timer(m,s/1000);
-	},1000);
-    </script>
+		if (m==60)
+		{
+			m = 0;
+			o = o + 1;
+		}
+		if (o==24){
+			o = 0 ;
+		}
+        timer(o,m,s);
+
+		sk = sk + Math.PI/30;
+
+        	if (sk>59*Math.PI/30) {
+        	mk= mk + Math.PI/30;
+			sk=0;
+			q=q+1;
+        }
+        if (q==12){
+        	ok = ok + Math.PI/30;     	
+        	q= 0;
+             }
+        if (mk>59*Math.PI/30){
+       		mk=0;
+        }
+		else {
+        	rotate(6*Math.PI/4 + sk,150,'red');
+        	rotate(6*Math.PI/4 + mk,150,'green');
+        	rotate(6*Math.PI/4 + ok, 115, 'blue');
+    }
+
+},1000);
+	 </script>
 </body>
 </html>
