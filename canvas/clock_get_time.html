@@ -19,17 +19,22 @@ img.src = 'cyferblat.jpg';
         month: 'long',
         day: 'numeric'
     };
+    var opt1 = {
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric'
+    };
 var data = new Date();
 
 
-function timer(o,m,s){
+function timer(d){
 	c.beginPath();
 	c.fillStyle = "white";
 	c.fillRect(300,0,500,500);
 	c.fillStyle = "black";
 	c.font = "italic 30pt Arial";
-	c.fillText(o + ":" + m + ":" + s , 350, 50);
-	c.fillText(data.toLocaleString('ru', opt) , 300, 100);
+	c.fillText(d.toLocaleString('ru', opt1), 350, 50);
+	c.fillText(d.toLocaleString('ru', opt) , 300, 100);
 	c.closePath();
 	
 }
@@ -81,12 +86,35 @@ var m = data.getMinutes();
 var o = data.getHours();
 var sk = 6*Math.PI/4 + s*Math.PI/30;
 var mk = 6*Math.PI/4 + m*Math.PI/30 ;
-var ok = 6*Math.PI/4 + o*Math.PI/30;
-var q=0;
+var ok;
+if ((mk<(6*Math.PI/4 + 12*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6;
+}
+if ((mk>(6*Math.PI/4 + 12*Math.PI/30)) && (mk<(6*Math.PI/4 + 24*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 2*Math.PI/30;
+}
+if ((mk>(6*Math.PI/4 + 24*Math.PI/30)) && (mk<(6*Math.PI/4 + 36*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 3*Math.PI/30;
+}
+if ((mk>(6*Math.PI/4 + 36*Math.PI/30)) && (mk<(6*Math.PI/4 + 48*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 4*Math.PI/30;
+}
+if ((mk>(6*Math.PI/4 + 48*Math.PI/30)) && (mk<(6*Math.PI/4 + 54*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 4.5*Math.PI/30;
+}
+if ((mk>(6*Math.PI/4 + 54*Math.PI/30)) && (mk<(6*Math.PI/4 + 60*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 5*Math.PI/30;
+}
 img.onload  = function () {
 clear();
 
-timer(o,m,s);      	
+timer(data);      	
 rotate(sk,150,'red');
 rotate(mk,130,'green');
 rotate(ok,100,'blue');
@@ -95,14 +123,36 @@ rotate(ok,100,'blue');
 setInterval(function () {
 		clear();
 var dat = new Date();
-s = dat.getSeconds();
-m = dat.getMinutes();
-o = dat.getHours();
-
-timer(o,m,s);
+var s = dat.getSeconds();
+var m = dat.getMinutes();
+var o = dat.getHours();
+timer(dat);
 sk = 6*Math.PI/4 + s*Math.PI/30;
 mk = 6*Math.PI/4 + m*Math.PI/30 ;
-ok = 6*Math.PI/4 + o*Math.PI/30;
+if ((mk<(6*Math.PI/4 + 12*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6;
+}
+if ((mk>(6*Math.PI/4 + 12*Math.PI/30)) && (mk<(6*Math.PI/4 + 24*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 2*Math.PI/30;
+}
+if ((mk>(6*Math.PI/4 + 24*Math.PI/30)) && (mk<(6*Math.PI/4 + 36*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 3*Math.PI/30;
+}
+if ((mk>(6*Math.PI/4 + 36*Math.PI/30)) && (mk<(6*Math.PI/4 + 48*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 4*Math.PI/30;
+}
+if ((mk>(6*Math.PI/4 + 48*Math.PI/30)) && (mk<(6*Math.PI/4 + 54*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 4.5*Math.PI/30;
+}
+if ((mk>(6*Math.PI/4 + 54*Math.PI/30)) && (mk<(6*Math.PI/4 + 60*Math.PI/30)))
+{
+    ok = 6*Math.PI/4 + o*Math.PI/6 + 5*Math.PI/30;
+}
 
 rotate(sk,150,'red');
 rotate(mk,130,'green');
